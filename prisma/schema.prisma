@@ -47,6 +47,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   collections   Collection[]
+  bookmarks     Bookmark[]
 }
 
 model VerificationToken {
@@ -73,7 +74,6 @@ model Collection {
   @@index([userId], name: "userId")
 }
 
-// a bookmark can be in multiple collections
 model Bookmark {
   id          Int      @id @default(autoincrement())
   url         String
@@ -83,6 +83,10 @@ model Bookmark {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  // a bookmark can be in multiple collections
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
   collections Collection[]
+
+  @@index([userId], name: "userId")
 }
