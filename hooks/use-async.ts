@@ -1,5 +1,5 @@
-import { useRouter } from 'next/navigation'
-import { useCallback, useEffect, useState, useTransition } from 'react'
+import { useCallback, useEffect, useState, useTransition } from "react"
+import { useRouter } from "next/navigation"
 
 export default function useAsync<Data = void>(
   callback?: () => Promise<Data>,

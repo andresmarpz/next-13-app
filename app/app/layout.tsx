@@ -1,13 +1,14 @@
-import Sidebar from '@/components/app/sidebar/Sidebar.server'
-import { authOptions } from '@/pages/api/auth/[...nextauth]'
-import { unstable_getServerSession } from 'next-auth'
-import { redirect } from 'next/navigation'
-import { PropsWithChildren } from 'react'
+import { PropsWithChildren } from "react"
+import { redirect } from "next/navigation"
+import { authOptions } from "@/pages/api/auth/[...nextauth]"
+import { unstable_getServerSession } from "next-auth"
+
+import Sidebar from "@/components/app/sidebar/Sidebar.server"
 
 export default async function AppLayout({ children }: PropsWithChildren) {
   const session = await unstable_getServerSession(authOptions)
 
-  if (!session) redirect('/api/auth/signin')
+  if (!session) redirect("/api/auth/signin")
 
   return (
     <div className="grid grid-cols-[0.3fr_0.7fr]">

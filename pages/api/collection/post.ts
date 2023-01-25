@@ -1,16 +1,17 @@
-import { NextApiRequest, NextApiResponse } from 'next'
-import { unstable_getServerSession } from 'next-auth'
-import { authOptions } from '../auth/[...nextauth]'
+import { NextApiRequest, NextApiResponse } from "next"
+import { unstable_getServerSession } from "next-auth"
+
+import { authOptions } from "../auth/[...nextauth]"
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.method === 'POST') {
+  if (req.method === "POST") {
     const session = await unstable_getServerSession(req, res, authOptions)
 
     if (!session) {
-      return res.status(401).json({ error: 'Unauthorized' })
+      return res.status(401).json({ error: "Unauthorized" })
     }
 
     try {
@@ -30,7 +31,7 @@ export default async function handler(
 
       return res.status(200).json({ collection })
     } catch (error) {
-      return res.status(400).json({ error: 'Bad request' })
+      return res.status(400).json({ error: "Bad request" })
     }
   }
 }

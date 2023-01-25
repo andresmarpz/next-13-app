@@ -1,7 +1,7 @@
-'use client'
+"use client"
 
-import { SessionProvider } from 'next-auth/react'
-import React from 'react'
+import React from "react"
+import { SessionProvider } from "next-auth/react"
 
 export default function ClientProvider({ children }: React.PropsWithChildren) {
   return <SessionProvider>{children}</SessionProvider>

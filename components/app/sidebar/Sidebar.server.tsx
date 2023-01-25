@@ -1,7 +1,8 @@
-import CollectionItem from '@/ui/sidebar/CollectionItem.server'
-import { Session } from 'next-auth'
-import Image from 'next/image'
-import NewCollection from './NewCollection.client'
+import Image from "next/image"
+import CollectionItem from "@/ui/sidebar/CollectionItem.server"
+import { Session } from "next-auth"
+
+import NewCollection from "./NewCollection.client"
 
 interface Props {
   session: Session
@@ -37,7 +38,7 @@ export default async function Sidebar({ session }: Props) {
       <ul>
         <NewCollection />
         {collections?.map(({ name, id }) => (
-          <CollectionItem key={'col' + id} name={name} id={id} />
+          <CollectionItem key={"col" + id} name={name} id={id} />
         ))}
       </ul>
     </aside>

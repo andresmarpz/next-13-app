@@ -1,9 +1,9 @@
-'use client'
+"use client"
 
-import Input from '@/ui/pure/Input'
-import * as PopoverPrimitive from '@radix-ui/react-popover'
-import clsx from 'clsx'
-import React, { useState } from 'react'
+import React, { useState } from "react"
+import Input from "@/ui/pure/Input"
+import * as PopoverPrimitive from "@radix-ui/react-popover"
+import clsx from "clsx"
 
 interface Props {
   open: boolean
@@ -18,7 +18,7 @@ export default function NewCollectionPopover({
   onSubmit,
   clear = true
 }: Props) {
-  const [name, setName] = useState('')
+  const [name, setName] = useState("")
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -26,7 +26,7 @@ export default function NewCollectionPopover({
     if (!name) return
 
     await onSubmit(name)
-    if (clear) setName('')
+    if (clear) setName("")
   }
 
   return (
@@ -38,8 +38,8 @@ export default function NewCollectionPopover({
         <PopoverPrimitive.Content
           collisionPadding={16}
           className={clsx(
-            'bg-white p-2',
-            'rounded-md shadow-md border-gray-300 border'
+            "bg-white p-2",
+            "rounded-md shadow-md border-gray-300 border"
           )}
         >
           <form onSubmit={handleSubmit} className="flex flex-col gap-2">

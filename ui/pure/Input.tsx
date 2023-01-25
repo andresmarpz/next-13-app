@@ -1,4 +1,4 @@
-import { forwardRef } from 'react'
+import { forwardRef } from "react"
 
 type Props = React.HTMLProps<HTMLInputElement>
 
@@ -11,6 +11,6 @@ const Input = forwardRef<HTMLInputElement, Props>((props, forwardedRef) => {
     />
   )
 })
-Input.displayName = 'Input'
+Input.displayName = "Input"
 
 export default Input
