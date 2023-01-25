@@ -1,4 +1,4 @@
-import Sidebar from '@/components/layout/sidebar/Sidebar.server'
+import Sidebar from '@/components/app/sidebar/Sidebar.server'
 import { authOptions } from '@/pages/api/auth/[...nextauth]'
 import { unstable_getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
