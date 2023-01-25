@@ -1,7 +1,8 @@
 import Image from "next/image"
 import { Session } from "next-auth"
 
-import CollectionItem from "@/components/app/sidebar/CollectionItem.server"
+import CollectionItem from "@/components/app/sidebar/CollectionItem.client"
+import Input from "@/components/ui/Input"
 import NewCollection from "./NewCollection.client"
 
 interface Props {
@@ -18,29 +19,35 @@ export default async function Sidebar({ session }: Props) {
   })
 
   return (
-    <aside className="p-2">
+    <aside className="p-3">
       {/* Header */}
-      <div className="flex justify-between">
-        <h1 className="text-lg font-bold">linky</h1>
-        <button>
-          <Image
-            className="rounded-full"
-            src={session.user?.image!}
-            alt={session.user?.name!}
-            width={32}
-            height={32}
-          />
-        </button>
-      </div>
-      {/* Search */}
-      <input type="text" placeholder="Search" />
+      <section className="flex flex-col gap-2">
+        <div className="flex justify-between items-center">
+          <h1 className="text-xl font-bold">linky</h1>
+          <button>
+            <Image
+              className="rounded-full"
+              src={session.user?.image!}
+              alt={session.user?.name!}
+              width={32}
+              height={32}
+            />
+          </button>
+        </div>
+        <div className="p-1">
+          <Input type="text" placeholder="Search" />
+        </div>
+      </section>
       {/* Collections */}
-      <ul>
-        <NewCollection />
-        {collections?.map(({ name, id }) => (
-          <CollectionItem key={"col" + id} name={name} id={id} />
-        ))}
-      </ul>
+      <section className="mt-4">
+        <h2 className="font-bold">Collections</h2>
+        <ul className="flex flex-col p-1 gap-1">
+          <NewCollection />
+          {collections?.map(({ name, id }) => (
+            <CollectionItem key={"col" + id} name={name} id={id} />
+          ))}
+        </ul>
+      </section>
     </aside>
   )
 }

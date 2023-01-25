@@ -2,8 +2,9 @@
 
 import React, { useState } from "react"
 import * as PopoverPrimitive from "@radix-ui/react-popover"
-import clsx from "clsx"
+import { ListPlusIcon } from "lucide-react"
 
+import { cn } from "@/lib/utils"
 import Input from "@/components/ui/Input"
 
 interface Props {
@@ -33,12 +34,21 @@ export default function NewCollectionPopover({
   return (
     <PopoverPrimitive.Root>
       <PopoverPrimitive.Trigger asChild>
-        <button onClick={onTriggerClick}>Create collection</button>
+        <button
+          className={cn(
+            "flex items-center gap-2 px-2 py-1",
+            " bg-black rounded shadow-sm border text-white font-medium"
+          )}
+          onClick={onTriggerClick}
+        >
+          <ListPlusIcon color="#FFF" size={16} />
+          New collection
+        </button>
       </PopoverPrimitive.Trigger>
       <PopoverPrimitive.Portal>
         <PopoverPrimitive.Content
           collisionPadding={16}
-          className={clsx(
+          className={cn(
             "bg-white p-2",
             "rounded-md shadow-md border-gray-300 border"
           )}
