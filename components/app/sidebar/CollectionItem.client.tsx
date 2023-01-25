@@ -1,9 +1,9 @@
 "use client"
 
 import Link from "next/link"
-import { HashIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
+import { Icons } from "@/components/ui/Icons"
 
 interface Props {
   name: string
@@ -21,7 +21,7 @@ export default function CollectionItem({ name, id }: Props) {
         )}
         href={`/app/collection/${id}`}
       >
-        <HashIcon size={16} />
+        <Icons.hash size={16} />
         {name}
       </Link>
     </li>

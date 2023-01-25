@@ -2,9 +2,9 @@
 
 import React, { useState } from "react"
 import * as PopoverPrimitive from "@radix-ui/react-popover"
-import { ListPlusIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
+import { Icons } from "@/components/ui/Icons"
 import Input from "@/components/ui/Input"
 
 interface Props {
@@ -41,7 +41,7 @@ export default function NewCollectionPopover({
           )}
           onClick={onTriggerClick}
         >
-          <ListPlusIcon color="#FFF" size={16} />
+          <Icons.listPlus color="#FFF" size={16} />
           New collection
         </button>
       </PopoverPrimitive.Trigger>
