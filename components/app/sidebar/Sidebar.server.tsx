@@ -1,7 +1,7 @@
 import Image from "next/image"
-import CollectionItem from "@/ui/sidebar/CollectionItem.server"
 import { Session } from "next-auth"
 
+import CollectionItem from "@/components/app/sidebar/CollectionItem.server"
 import NewCollection from "./NewCollection.client"
 
 interface Props {

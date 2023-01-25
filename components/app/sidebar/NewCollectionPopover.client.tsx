@@ -1,9 +1,10 @@
 "use client"
 
 import React, { useState } from "react"
-import Input from "@/ui/pure/Input"
 import * as PopoverPrimitive from "@radix-ui/react-popover"
 import clsx from "clsx"
+
+import Input from "@/components/ui/Input"
 
 interface Props {
   open: boolean
