@@ -42,7 +42,12 @@ export default async function handler(
         description,
         url,
         image: "asdasdass",
-        collections
+        collections,
+				user: {
+					connect: {
+						email: session.user?.email!
+					}
+				}
       }
     })
 
