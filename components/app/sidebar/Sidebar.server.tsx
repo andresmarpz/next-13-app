@@ -22,7 +22,7 @@ export default async function Sidebar({ session }: Props) {
     <aside className="p-3">
       {/* Header */}
       <section className="flex flex-col gap-2">
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <h1 className="text-xl font-bold">linky</h1>
           <button>
             <Image
@@ -41,7 +41,7 @@ export default async function Sidebar({ session }: Props) {
       {/* Collections */}
       <section className="mt-4">
         <h2 className="font-bold">Collections</h2>
-        <ul className="flex flex-col p-1 gap-1">
+        <ul className="flex flex-col gap-1 p-1">
           <NewCollection />
           {collections?.map(({ name, id }) => (
             <CollectionItem key={"col" + id} name={name} id={id} />

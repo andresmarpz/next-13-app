@@ -15,8 +15,8 @@ export default function CollectionItem({ name, id }: Props) {
     <li>
       <Link
         className={cn(
-          "flex gap-2 items-center font-medium",
-          "px-2 py-1 rounded",
+          "flex items-center gap-2 font-medium",
+          "rounded px-2 py-1",
           "hover:bg-gray-100"
         )}
         href={`/app/collection/${id}`}

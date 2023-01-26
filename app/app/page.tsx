@@ -16,7 +16,7 @@ export default async function App() {
 
   if (!bookmarks || !bookmarks.length)
     return (
-      <h1 className="mt-10 text-2xl font-bold text-center w-fit mx-auto">
+      <h1 className="mx-auto mt-10 w-fit text-center text-2xl font-bold">
         No bookmarks found. Add some!
       </h1>
     )

@@ -37,7 +37,7 @@ export default function NewCollectionPopover({
         <button
           className={cn(
             "flex items-center gap-2 px-2 py-1",
-            " bg-black rounded shadow-sm border text-white font-medium"
+            " rounded border bg-black font-medium text-white shadow-sm"
           )}
           onClick={onTriggerClick}
         >
@@ -50,13 +50,13 @@ export default function NewCollectionPopover({
           collisionPadding={16}
           className={cn(
             "bg-white p-2",
-            "rounded-md shadow-md border-gray-300 border"
+            "rounded-md border border-gray-300 shadow-md"
           )}
         >
           <form onSubmit={handleSubmit} className="flex flex-col gap-2">
             <div className="flex flex-col">
               <label
-                className="text-gray-900 text-sm"
+                className="text-sm text-gray-900"
                 htmlFor="collection-name"
               >
                 Name
