@@ -1,7 +1,10 @@
 import Image from "next/image"
+import Link from "next/link"
 import { Session } from "next-auth"
 
+import { cn } from "@/lib/utils"
 import CollectionItem from "@/components/app/sidebar/CollectionItem.client"
+import { Icons } from "@/components/ui/Icons"
 import Input from "@/components/ui/Input"
 import NewCollection from "./NewCollection.client"
 
@@ -23,7 +26,9 @@ export default async function Sidebar({ session }: Props) {
       {/* Header */}
       <section className="flex flex-col gap-2">
         <div className="flex items-center justify-between">
-          <h1 className="text-xl font-bold">linky</h1>
+          <Link href="/app">
+            <h1 className="text-xl font-bold">linky</h1>
+          </Link>
           <button>
             <Image
               className="rounded-full"
@@ -34,8 +39,19 @@ export default async function Sidebar({ session }: Props) {
             />
           </button>
         </div>
-        <div className="p-1">
+        <div className="flex flex-col gap-4 p-1">
           <Input type="text" placeholder="Search" />
+          <Link href="/app/all">
+            <button
+              className={cn(
+                "flex w-full items-center gap-2 px-2 py-1",
+                " rounded-md border bg-black font-medium text-white shadow-sm"
+              )}
+            >
+              <Icons.target color="#FFF" size={16} />
+              All bookmarks
+            </button>
+          </Link>
         </div>
       </section>
       {/* Collections */}

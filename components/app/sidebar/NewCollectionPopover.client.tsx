@@ -37,7 +37,7 @@ export default function NewCollectionPopover({
         <button
           className={cn(
             "flex items-center gap-2 px-2 py-1",
-            " rounded border bg-black font-medium text-white shadow-sm"
+            " rounded-md border bg-black font-medium text-white shadow-sm"
           )}
           onClick={onTriggerClick}
         >
