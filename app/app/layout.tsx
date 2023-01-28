@@ -11,7 +11,7 @@ export default async function AppLayout({ children }: PropsWithChildren) {
   if (!session) redirect("/api/auth/signin")
 
   return (
-    <div className="grid grid-cols-[minmax(225px,_0.3fr)_1fr]">
+    <div className="grid grid-cols-[minmax(225px,_300px)_1fr]" suppressHydrationWarning>
       {/* @ts-expect-error Server Component */}
       <Sidebar session={session} />
       <main>{children}</main>

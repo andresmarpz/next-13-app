@@ -1,9 +1,14 @@
 import "../styles/globals.css"
 import { Inter } from "@next/font/google"
 
-import ClientProvider from "@/components/global/ClientProvider"
+import { Providers } from "@/components/global/Providers"
+import { cn } from "@/lib/utils"
 
-const inter = Inter({ subsets: ["latin"] })
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter"
+})
 
 export default function RootLayout({
   children
@@ -11,14 +16,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={inter.className}>
-      {/*
-        <head /> will contain the components returned by the nearest parent
-        head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
-      */}
+    <html lang="en" suppressHydrationWarning>
       <head />
-      <body>
-        <ClientProvider>{children}</ClientProvider>
+      <body className={cn(inter.variable)}>
+        <Providers>{children}</Providers>
       </body>
     </html>
   )

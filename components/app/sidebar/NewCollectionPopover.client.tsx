@@ -4,8 +4,8 @@ import React, { useState } from "react"
 import * as PopoverPrimitive from "@radix-ui/react-popover"
 
 import { cn } from "@/lib/utils"
-import { Icons } from "@/components/ui/Icons"
-import Input from "@/components/ui/Input"
+import { Icons } from "@/components/ui/icons"
+import Input from "@/components/ui/input"
 
 interface Props {
   open: boolean

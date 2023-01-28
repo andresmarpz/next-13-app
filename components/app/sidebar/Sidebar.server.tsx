@@ -4,8 +4,9 @@ import { Session } from "next-auth"
 
 import { cn } from "@/lib/utils"
 import CollectionItem from "@/components/app/sidebar/CollectionItem.client"
-import { Icons } from "@/components/ui/Icons"
-import Input from "@/components/ui/Input"
+import ToggleTheme from "@/components/toggle-theme"
+import { Icons } from "@/components/ui/icons"
+import Input from "@/components/ui/input"
 import NewCollection from "./NewCollection.client"
 
 interface Props {
@@ -29,15 +30,18 @@ export default async function Sidebar({ session }: Props) {
           <Link href="/app">
             <h1 className="text-xl font-bold">linky</h1>
           </Link>
-          <button>
-            <Image
-              className="rounded-full"
-              src={session.user?.image!}
-              alt={session.user?.name!}
-              width={32}
-              height={32}
-            />
-          </button>
+          <span className="flex items-center gap-3">
+            <ToggleTheme />
+            <button>
+              <Image
+                className="rounded-full"
+                src={session.user?.image!}
+                alt={session.user?.name!}
+                width={32}
+                height={32}
+              />
+            </button>
+          </span>
         </div>
         <div className="flex flex-col gap-4 p-1">
           <Input type="text" placeholder="Search" />
