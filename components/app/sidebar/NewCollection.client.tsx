@@ -9,7 +9,7 @@ import NewCollectionPopover from "./NewCollectionPopover.client"
 export default function NewCollection() {
   const [open, setOpen] = useState(false)
 
-  useAsync<Collection | undefined>(undefined, { refresh: true })
+  useAsync<Collection | undefined>({ refresh: true })
 
   const onSubmit = async (name: string) => {
     setOpen(false)

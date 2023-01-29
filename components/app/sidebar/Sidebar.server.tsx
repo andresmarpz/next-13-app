@@ -5,6 +5,7 @@ import { Session } from "next-auth"
 import { cn } from "@/lib/utils"
 import CollectionItem from "@/components/app/sidebar/CollectionItem.client"
 import ToggleTheme from "@/components/toggle-theme"
+import { Button } from "@/components/ui/button"
 import { Icons } from "@/components/ui/icons"
 import Input from "@/components/ui/input"
 import NewCollection from "./NewCollection.client"
@@ -46,15 +47,13 @@ export default async function Sidebar({ session }: Props) {
         <div className="flex flex-col gap-4 p-1">
           <Input type="text" placeholder="Search" />
           <Link href="/app/all">
-            <button
-              className={cn(
-                "flex w-full items-center gap-2 px-2 py-1",
-                " rounded-md border bg-black font-medium text-white shadow-sm"
-              )}
-            >
-              <Icons.target color="#FFF" size={16} />
+            <Button variant="default" className="w-full">
+              <Icons.target
+                className="mr-2 fill-black dark:fill-white"
+                size={16}
+              />
               All bookmarks
-            </button>
+            </Button>
           </Link>
         </div>
       </section>

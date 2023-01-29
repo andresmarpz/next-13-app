@@ -4,6 +4,7 @@ import React, { useState } from "react"
 import * as PopoverPrimitive from "@radix-ui/react-popover"
 
 import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
 import { Icons } from "@/components/ui/icons"
 import Input from "@/components/ui/input"
 
@@ -34,16 +35,10 @@ export default function NewCollectionPopover({
   return (
     <PopoverPrimitive.Root>
       <PopoverPrimitive.Trigger asChild>
-        <button
-          className={cn(
-            "flex items-center gap-2 px-2 py-1",
-            " rounded-md border bg-black font-medium text-white shadow-sm"
-          )}
-          onClick={onTriggerClick}
-        >
-          <Icons.listPlus color="#FFF" size={16} />
+        <Button onClick={onTriggerClick}>
+          <Icons.listPlus className="mr-2 fill-black dark:fill-white" size={16} />
           New collection
-        </button>
+        </Button>
       </PopoverPrimitive.Trigger>
       <PopoverPrimitive.Portal>
         <PopoverPrimitive.Content
