@@ -11,7 +11,9 @@ export default async function CollectionById({ params }: Props) {
 
   const bookmarks = await prisma?.bookmark.findMany({
     where: {
-      collectionId: Number(params.id)
+      collection: {
+				id: Number(params.id)
+			}
     }
   })
 
