@@ -1,6 +1,6 @@
 "use client"
 
-import { Moon, Sun } from "lucide-react"
+import { Moon, Palette, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 
 import { Button } from "./ui/button"
@@ -10,12 +10,12 @@ export default function ToggleTheme() {
 
   return (
     <Button
-			variant="ghost"
+      variant="ghost"
       onClick={() =>
         theme ? setTheme(theme === "dark" ? "light" : "dark") : undefined
       }
     >
-      {theme && (theme === "dark" ? <Sun /> : <Moon />)}
+      <Palette className="h-4 w-4" />
     </Button>
   )
 }
