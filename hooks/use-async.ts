@@ -1,10 +1,7 @@
-import { useCallback, useEffect, useState, useTransition } from "react"
+import { useCallback, useState, useTransition } from "react"
 import { useRouter } from "next/navigation"
 
-export default function useAsync<Data = void>(
-  callback?: () => Promise<Data>,
-  { refresh = false, immediate = false } = {}
-) {
+export default function useAsync<Data = any>({ refresh = false } = {}) {
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
   const [data, setData] = useState<Data | undefined>(undefined)
@@ -14,26 +11,27 @@ export default function useAsync<Data = void>(
   const isLoading = isFetching || isPending
 
   const execute = useCallback(
-    async (cb?: () => Promise<Data>) => {
+    async (cb: Promise<Data>) => {
       setError(undefined)
       setData(undefined)
       setIsFetching(true)
-      const response = await (callback ? callback : cb)!()
-        .then((res) => setData(res))
-        .catch((err) => setError(err))
 
-      setIsFetching(false)
-
-      if (refresh) startTransition(() => router.refresh())
-
-      return response
+      return cb
+        .then((res) => {
+          setData(res)
+          if (refresh) startTransition(() => router.refresh())
+          return res
+        })
+        .catch((err) => {
+          setError(err)
+          return err
+        })
+        .finally(() => {
+          setIsFetching(false)
+        })
     },
-    [callback, refresh, router]
+    [refresh, router]
   )
-
-  useEffect(() => {
-    if (immediate) execute()
-  }, [execute, immediate])
 
   return {
     data,
