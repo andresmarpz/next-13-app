@@ -2,7 +2,6 @@ import Image from "next/image"
 import Link from "next/link"
 import { Session } from "next-auth"
 
-import { cn } from "@/lib/utils"
 import CollectionItem from "@/components/app/sidebar/CollectionItem.client"
 import ToggleTheme from "@/components/toggle-theme"
 import { Button } from "@/components/ui/button"
