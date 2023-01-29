@@ -39,7 +39,7 @@ model Session {
 }
 
 model User {
-  id            String       @id @default(cuid())
+  id            String       @id @unique @default(cuid())
   name          String?
   email         String?      @unique
   emailVerified DateTime?
@@ -83,10 +83,12 @@ model Bookmark {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
+  collection   Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+  collectionId Int
+
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
 
-  collections Collection[]
-
   @@index([userId], name: "userId")
+  @@index([collectionId], name: "collectionId")
 }
