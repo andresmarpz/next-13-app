@@ -8,7 +8,9 @@ module.exports = {
   ],
   theme: {
     extend: {
-			
+			transitionProperty: {
+				border: "border"
+			}
 		},
   },
   plugins: [require("tailwindcss-animate")],

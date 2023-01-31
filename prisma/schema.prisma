@@ -79,7 +79,10 @@ model Bookmark {
   url         String
   title       String
   description String?
+  icon        String?
+  iconBase64  String?
   image       String?
+  imageBase64 String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 

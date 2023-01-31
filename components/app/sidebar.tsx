@@ -2,12 +2,11 @@ import Image from "next/image"
 import Link from "next/link"
 import { Session } from "next-auth"
 
-import CollectionItem from "@/components/app/sidebar/CollectionItem.client"
+import CollectionList from "@/components/collections/collection-list"
 import ToggleTheme from "@/components/toggle-theme"
 import { Button } from "@/components/ui/button"
 import { Icons } from "@/components/ui/icons"
 import Input from "@/components/ui/input"
-import NewCollection from "./NewCollection.client"
 
 interface Props {
   session: Session
@@ -23,7 +22,7 @@ export default async function Sidebar({ session }: Props) {
   })
 
   return (
-    <aside className="p-3">
+    <aside className="border-r border-gray-300 p-3">
       {/* Header */}
       <section className="flex flex-col gap-2">
         <div className="flex items-center justify-between">
@@ -45,7 +44,7 @@ export default async function Sidebar({ session }: Props) {
         </div>
         <div className="flex flex-col gap-4 p-1">
           <Input type="text" placeholder="Search" />
-          <Link href="/app/all">
+          <Link href="/app">
             <Button variant="default" className="w-full">
               <Icons.target
                 className="mr-2 fill-black dark:fill-white"
@@ -59,12 +58,7 @@ export default async function Sidebar({ session }: Props) {
       {/* Collections */}
       <section className="mt-4">
         <h2 className="font-bold">Collections</h2>
-        <ul className="flex flex-col gap-1 p-1">
-          <NewCollection />
-          {collections?.map(({ name, id }) => (
-            <CollectionItem key={"col" + id} name={name} id={id} />
-          ))}
-        </ul>
+        <CollectionList collections={collections ?? []} />
       </section>
     </aside>
   )

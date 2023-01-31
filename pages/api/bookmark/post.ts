@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next"
+import { getFavicons } from "@andresmarpz/favicons"
 import { unstable_getServerSession } from "next-auth"
 import { z } from "zod"
 
@@ -34,6 +35,10 @@ export default async function handler(
     }
     bookmarkSchema.parse(input)
 
+    const favicons = await getFavicons(url)
+    const best = favicons.sort((a, b) => b.size - a.size)[0]
+		console.log(best)
+
     await prisma?.collection.findFirstOrThrow({
       where: {
         id: input.collectionId,
@@ -49,6 +54,7 @@ export default async function handler(
         description: input.description,
         url: input.url,
         image: input.image,
+				icon: best.url,
         collection: {
           connect: {
             id: input.collectionId

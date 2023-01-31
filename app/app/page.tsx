@@ -1,7 +1,7 @@
 import { authOptions } from "@/pages/api/auth/[...nextauth]"
 import { unstable_getServerSession } from "next-auth"
 
-import BookmarkList from "@/components/app/main/BookmarkList"
+import BookmarkList from '@/components/bookmarks/bookmark-list'
 
 export default async function App() {
   const session = await unstable_getServerSession(authOptions)

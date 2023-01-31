@@ -1,4 +1,4 @@
-import BookmarkList from "@/components/app/main/BookmarkList"
+import BookmarkList from "@/components/bookmarks/bookmark-list"
 
 interface Props {
   params: {
@@ -12,8 +12,8 @@ export default async function CollectionById({ params }: Props) {
   const bookmarks = await prisma?.bookmark.findMany({
     where: {
       collection: {
-				id: Number(params.id)
-			}
+        id: Number(params.id)
+      }
     }
   })
 

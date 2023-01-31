@@ -43,7 +43,7 @@ const SelectField = React.forwardRef<
 })
 SelectField.displayName = "SelectField"
 
-export default function AddBookmark({ collections }: Props) {
+export default function NewBookmark({ collections }: Props) {
   const [open, setOpen] = useState(false)
 
   const {
@@ -51,7 +51,8 @@ export default function AddBookmark({ collections }: Props) {
     handleSubmit,
     formState: { errors },
     setValue,
-    reset
+    reset,
+    clearErrors
   } = useForm()
 
   const { isLoading, execute } = useAsync<Bookmark>({
@@ -76,9 +77,15 @@ export default function AddBookmark({ collections }: Props) {
   }
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog
+      open={open}
+      onOpenChange={(value) => {
+        if (value === false) clearErrors()
+        setOpen(value)
+      }}
+    >
       <DialogTrigger asChild>
-        <Button variant="default">
+        <Button variant="default" disabled={!collections.length}>
           <Plus className="mr-2 h-4 w-4" />
           New Bookmark
         </Button>
@@ -93,44 +100,48 @@ export default function AddBookmark({ collections }: Props) {
                 type="text"
                 id="title"
                 autoComplete="off"
-                {...register("title", { required: true })}
+                {...register("title", {
+                  required: {
+                    value: true,
+                    message: "This field is required"
+                  }
+                })}
               />
-              {errors.title && <span>This field is required</span>}
+              {errors.title && <span>{String(errors.title.message)}</span>}
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-1">
               <Label htmlFor="url">URL *</Label>
               <Input
                 type="text"
                 id="url"
                 autoComplete="off"
-                {...register("url", { required: true })}
+                {...register("url", {
+                  required: {
+                    value: true,
+                    message: "This field is required"
+                  }
+                })}
               />
-              {errors.url && <span>This field is required</span>}
+              {errors.url && <span>{String(errors.url.message)}</span>}
             </div>
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="tags">Tags</Label>
-              <Input
-                type="text"
-                id="tags"
-                autoComplete="off"
-                {...register("tags")}
-              />
-              {errors.tags && <span>This field is required</span>}
-            </div>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-1">
               <Label htmlFor="description">Description</Label>
               <Input
                 id="description"
                 autoComplete="off"
                 {...register("description")}
               />
-              {errors.description && <span>This field is required</span>}
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-1">
               <Label htmlFor="collection">Collection</Label>
               <SelectField
                 onValueChange={(value) => setValue("collection", value)}
-                {...register("collection", { required: true })}
+                {...register("collection", {
+                  required: {
+                    value: true,
+                    message: "This field is required"
+                  }
+                })}
               >
                 {collections.map((collection) => (
                   <SelectItem
@@ -141,6 +152,9 @@ export default function AddBookmark({ collections }: Props) {
                   </SelectItem>
                 ))}
               </SelectField>
+              {errors.collection && (
+                <span>{String(errors.collection.message)}</span>
+              )}
             </div>
             <div className="flex justify-end">
               <Button type="submit" disabled={isLoading}>

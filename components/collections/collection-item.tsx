@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { motion } from "framer-motion"
 
 import { cn } from "@/lib/utils"
 import { Icons } from "@/components/ui/icons"
@@ -9,14 +10,24 @@ import { Icons } from "@/components/ui/icons"
 interface Props {
   name: string
   id: number
+  index: number
 }
 
-export default function CollectionItem({ name, id }: Props) {
+export default function CollectionItem({ name, id, index }: Props) {
   const pathname = usePathname()
   const isActive = pathname === `/app/collection/${id}`
 
   return (
-    <li>
+    <motion.li
+      animate={{
+        translateY: [32, 0],
+        opacity: [0, 1]
+      }}
+      transition={{
+        duration: 0.3,
+        delay: index * 0.1
+      }}
+    >
       <Link
         className={cn(
           "flex items-center gap-2 font-medium",
@@ -29,6 +40,6 @@ export default function CollectionItem({ name, id }: Props) {
         <Icons.hash size={16} />
         {name}
       </Link>
-    </li>
+    </motion.li>
   )
 }

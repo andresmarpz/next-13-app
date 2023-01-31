@@ -1,7 +1,13 @@
+import Link from "next/link"
+
 export default function Home() {
   return (
-    <h1 className="text-3xl font-bold text-green-500 underline">
-      Hello, Next.js!
-    </h1>
+    <>
+      <header className="flex gap-3 p-4">
+        <h1>Linky</h1>
+        <Link href="/app">App</Link>
+      </header>
+      <main></main>
+    </>
   )
 }
