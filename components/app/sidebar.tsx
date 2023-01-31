@@ -7,6 +7,7 @@ import ToggleTheme from "@/components/toggle-theme"
 import { Button } from "@/components/ui/button"
 import { Icons } from "@/components/ui/icons"
 import Input from "@/components/ui/input"
+import UserDropdown from "./user-dropdown"
 
 interface Props {
   session: Session
@@ -31,15 +32,7 @@ export default async function Sidebar({ session }: Props) {
           </Link>
           <span className="flex items-center gap-3">
             <ToggleTheme />
-            <button>
-              <Image
-                className="rounded-full"
-                src={session.user?.image!}
-                alt={session.user?.name!}
-                width={32}
-                height={32}
-              />
-            </button>
+            <UserDropdown />
           </span>
         </div>
         <div className="flex flex-col gap-4 p-1">
