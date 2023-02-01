@@ -25,7 +25,7 @@ import Input from "../ui/input"
 import Label from "../ui/label"
 
 interface Props {
-  collections: Collection[]
+  collections: Pick<Collection, "name" | "id">[]
 }
 
 const SelectField = React.forwardRef<
