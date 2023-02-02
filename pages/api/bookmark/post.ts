@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import { getFavicons } from "@andresmarpz/favicons"
-import { unstable_getServerSession } from "next-auth"
+import { getServerSession } from "next-auth"
 import { z } from "zod"
 
 import { authOptions } from "../auth/[...nextauth]"
@@ -18,7 +18,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const session = await unstable_getServerSession(req, res, authOptions)
+  const session = await getServerSession(req, res, authOptions)
 
   if (!session) return res.status(401).json({ error: "Unauthorized" })
 
@@ -38,7 +38,6 @@ export default async function handler(
 
     const favicons = await getFavicons(url)
     const best = favicons.sort((a, b) => b.size - a.size)[0]
-		console.log(best)
 
     await prisma.collection.findFirstOrThrow({
       where: {
