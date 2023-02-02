@@ -1,3 +1,4 @@
+import prisma from "@/prisma/client"
 import { NextApiRequest, NextApiResponse } from "next"
 import { unstable_getServerSession } from "next-auth"
 
@@ -17,7 +18,7 @@ export default async function handler(
     try {
       const { name } = JSON.parse(req.body)
 
-      const collection = await prisma?.collection.create({
+      const collection = await prisma.collection.create({
         data: {
           name,
           user: {

@@ -4,6 +4,7 @@ import { unstable_getServerSession } from "next-auth"
 import { z } from "zod"
 
 import { authOptions } from "../auth/[...nextauth]"
+import prisma from "@/prisma/client"
 
 const bookmarkSchema = z.object({
   title: z.string(),
@@ -39,7 +40,7 @@ export default async function handler(
     const best = favicons.sort((a, b) => b.size - a.size)[0]
 		console.log(best)
 
-    await prisma?.collection.findFirstOrThrow({
+    await prisma.collection.findFirstOrThrow({
       where: {
         id: input.collectionId,
         user: {
@@ -48,7 +49,7 @@ export default async function handler(
       }
     })
 
-    const bookmark = await prisma?.bookmark.create({
+    const bookmark = await prisma.bookmark.create({
       data: {
         title: input.title,
         description: input.description,

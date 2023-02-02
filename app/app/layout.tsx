@@ -5,13 +5,14 @@ import { unstable_getServerSession } from "next-auth"
 
 import Sidebar from "@/components/app/sidebar"
 import NewBookmark from "@/components/bookmarks/new-bookmark"
+import prisma from "@/prisma/client"
 
 export default async function AppLayout({ children }: PropsWithChildren) {
   const session = await unstable_getServerSession(authOptions)
 
   if (!session) redirect("/api/auth/signin")
 
-  const collections = await prisma?.collection.findMany({
+  const collections = await prisma.collection.findMany({
     where: {
       user: {
         email: session?.user?.email

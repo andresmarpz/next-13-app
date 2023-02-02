@@ -7,13 +7,14 @@ import { Button } from "@/components/ui/button"
 import { Icons } from "@/components/ui/icons"
 import Input from "@/components/ui/input"
 import UserDropdown from "./user-dropdown"
+import prisma from "@/prisma/client"
 
 interface Props {
   session: Session
 }
 
 export default async function Sidebar({ session }: Props) {
-  const collections = await prisma?.collection.findMany({
+  const collections = await prisma.collection.findMany({
     where: {
       user: {
         email: session.user?.email

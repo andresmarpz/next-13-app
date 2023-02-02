@@ -1,12 +1,13 @@
 import { authOptions } from "@/pages/api/auth/[...nextauth]"
 import { unstable_getServerSession } from "next-auth"
+import prisma from "@/prisma/client"
 
 import BookmarkList from '@/components/bookmarks/bookmark-list'
 
 export default async function App() {
   const session = await unstable_getServerSession(authOptions)
 
-  const bookmarks = await prisma?.bookmark.findMany({
+  const bookmarks = await prisma.bookmark.findMany({
     where: {
       user: {
         email: session?.user?.email
