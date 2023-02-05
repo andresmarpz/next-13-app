@@ -7,7 +7,7 @@ import { authOptions } from "../auth/[...nextauth]"
 import prisma from "@/prisma/client"
 
 const bookmarkSchema = z.object({
-  title: z.string(),
+  title: z.string().optional(),
   url: z.string().url(),
   description: z.string().optional(),
   image: z.string().optional(),
