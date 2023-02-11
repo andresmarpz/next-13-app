@@ -5,6 +5,17 @@ import { Bookmark } from "@prisma/client"
 import { motion } from "framer-motion"
 
 import { cn } from "@/lib/utils"
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuTrigger
+} from "../primitives/context-menu"
+import { Pencil, Trash } from "lucide-react"
+import useAsync from "@/hooks/use-async"
+import deleteBookmark from "@/lib/api/delete-bookmark"
+import Spinner from "../ui/spinner"
+import { prettifyURL } from "@/lib/transform-url"
 
 interface Props {
   bookmark: Pick<Bookmark, "title" | "description" | "url" | "icon" | "id">
@@ -15,6 +26,12 @@ export default function BookmarkItem({
   bookmark: { title, description, url, icon, id },
   index
 }: Props) {
+  const { isLoading: isDeleting, execute } = useAsync({ refresh: true })
+
+  async function onDelete() {
+    await execute(deleteBookmark(id))
+  }
+
   return (
     <motion.li
       animate={{
@@ -30,32 +47,46 @@ export default function BookmarkItem({
         "transition-border hover:border hover:border-gray-500 hover:shadow"
       )}
     >
-      <a
-        className="flex w-full gap-4 p-4"
-        href={url}
-        target="_blank"
-        rel="noreferrer noopener"
-      >
-        <div className="flex items-start">
-          {icon && (
-            <div className="rounded border p-1">
-              <Image
-                src={icon}
-                alt=""
-                className="rounded"
-                width={24}
-                height={24}
-                unoptimized
-              />
+      <ContextMenu>
+        <ContextMenuTrigger>
+          <a
+            className="flex w-full gap-4 p-4"
+            href={url}
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            <div className="flex min-w-[32px] items-start">
+              {icon && (
+                <div className="rounded border p-1">
+                  <Image
+                    src={icon}
+                    alt=""
+                    className="rounded"
+                    width={24}
+                    height={24}
+										unoptimized
+                  />
+                </div>
+              )}
             </div>
-          )}
-        </div>
-        <div>
-          <h3 className="font-semibold text-gray-900">{title}</h3>
-          <p className="text-sm text-gray-500">{url}</p>
-          <p className="text-sm text-gray-600">{description}</p>
-        </div>
-      </a>
+            <div>
+              <h3 className="font-semibold text-gray-900">{title}</h3>
+              <p className="text-sm text-gray-500">{prettifyURL(url)}</p>
+              <p className="text-sm text-gray-600">{description}</p>
+            </div>
+          </a>
+        </ContextMenuTrigger>
+        <ContextMenuContent className="w-52">
+          <ContextMenuItem>
+            <Pencil className="mr-2 h-4 w-4" />
+            Edit
+          </ContextMenuItem>
+          <ContextMenuItem onClick={onDelete}>
+            {isDeleting ? <Spinner /> : <Trash className="mr-2 h-4 w-4" />}
+            Delete
+          </ContextMenuItem>
+        </ContextMenuContent>
+      </ContextMenu>
     </motion.li>
   )
 }

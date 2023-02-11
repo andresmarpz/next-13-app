@@ -2,7 +2,7 @@ import { authOptions } from "@/pages/api/auth/[...nextauth]"
 import { getServerSession } from "next-auth"
 import prisma from "@/prisma/client"
 
-import BookmarkList from '@/components/bookmarks/bookmark-list'
+import BookmarkList from "@/components/bookmarks/bookmark-list"
 
 export default async function App() {
   const session = await getServerSession(authOptions)
@@ -12,7 +12,10 @@ export default async function App() {
       user: {
         email: session?.user?.email
       }
-    }
+    },
+		orderBy: {
+			createdAt: "desc"
+		}
   })
 
   if (!bookmarks || !bookmarks.length)

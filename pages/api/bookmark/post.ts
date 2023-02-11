@@ -35,6 +35,14 @@ export default async function handler(
       collectionId: Number(collectionId)
     }
     bookmarkSchema.parse(input)
+		console.log(input)
+
+    const page = await fetch(url)
+    const html = await page.text()
+    const pageTitle = html.match(/<title>(.*?)<\/title>/)?.[1]
+    const pageDescription = html.match(
+      /<meta.*?name="description".*?content="(.*?)".*?>/
+    )?.[1]
 
     const favicons = await getFavicons(url)
     const best = favicons.sort((a, b) => b.size - a.size)[0]
@@ -50,11 +58,11 @@ export default async function handler(
 
     const bookmark = await prisma.bookmark.create({
       data: {
-        title: input.title,
-        description: input.description,
+        title: input.title ?? pageTitle ?? undefined,
+        description: input.description ?? pageDescription ?? undefined,
         url: input.url,
         image: input.image,
-				icon: best.url,
+        icon: best.url,
         collection: {
           connect: {
             id: input.collectionId

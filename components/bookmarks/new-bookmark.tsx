@@ -23,6 +23,8 @@ import {
 import { Button } from "../ui/button"
 import Input from "../ui/input"
 import Label from "../ui/label"
+import { urlRegex } from "@/lib/validation"
+import { transformURL } from "@/lib/transform-url"
 
 interface Props {
   collections: Pick<Collection, "name" | "id">[]
@@ -44,7 +46,7 @@ const SelectField = React.forwardRef<
 SelectField.displayName = "SelectField"
 
 export default function NewBookmark({ collections }: Props) {
-  const [open, setOpen] = useState(false)
+  const [open, setOpenState] = useState(false)
 
   const {
     register,
@@ -52,8 +54,20 @@ export default function NewBookmark({ collections }: Props) {
     formState: { errors },
     setValue,
     reset,
-    clearErrors
+    clearErrors,
+    getValues
   } = useForm()
+
+  console.log(getValues("collection"))
+
+  const setOpen = (open: boolean) => {
+    if (open === false) {
+      clearErrors()
+      reset()
+    }
+
+    setOpenState(open)
+  }
 
   const { isLoading, execute } = useAsync<Bookmark>({
     refresh: true
@@ -62,17 +76,26 @@ export default function NewBookmark({ collections }: Props) {
   const onSubmit = async (data: FieldValues) => {
     const { title, url, description, image, collection } = data
 
+    const transformedURL = transformURL(url)
+
     await execute(
       createBookmark({
-        title,
-        url,
-        description,
+        title: title !== "" ? title : undefined,
+        url: transformedURL,
+        description: description !== "" ? description : undefined,
         image,
         collectionId: Number(collection)
       })
     )
 
-    reset()
+    reset({
+      data: {
+        title: "",
+        url: "",
+        description: "",
+        collection: undefined
+      }
+    })
     setOpen(false)
   }
 
@@ -95,19 +118,18 @@ export default function NewBookmark({ collections }: Props) {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
-              <Label htmlFor="title">Title *</Label>
+              <Label htmlFor="title">Title</Label>
               <Input
                 type="text"
                 id="title"
                 autoComplete="off"
-                {...register("title", {
-                  required: {
-                    value: true,
-                    message: "This field is required"
-                  }
-                })}
+                {...register("title")}
               />
-              {errors.title && <span>{String(errors.title.message)}</span>}
+              {errors.title && (
+                <span className="text-sm text-gray-500">
+                  {String(errors.title.message)}
+                </span>
+              )}
             </div>
             <div className="flex flex-col gap-1">
               <Label htmlFor="url">URL *</Label>
@@ -119,10 +141,19 @@ export default function NewBookmark({ collections }: Props) {
                   required: {
                     value: true,
                     message: "This field is required"
+                  },
+                  validate: {
+                    isUrl: (value) => {
+                      return urlRegex.test(value) ? true : "Invalid URL"
+                    }
                   }
                 })}
               />
-              {errors.url && <span>{String(errors.url.message)}</span>}
+              {errors.url && (
+                <span className="text-sm text-gray-500">
+                  {String(errors.url.message)}
+                </span>
+              )}
             </div>
             <div className="flex flex-col gap-1">
               <Label htmlFor="description">Description</Label>
@@ -136,10 +167,20 @@ export default function NewBookmark({ collections }: Props) {
               <Label htmlFor="collection">Collection</Label>
               <SelectField
                 onValueChange={(value) => setValue("collection", value)}
+                defaultValue={undefined}
                 {...register("collection", {
                   required: {
                     value: true,
                     message: "This field is required"
+                  },
+                  validate: {
+                    isCollection: (value) => {
+                      return collections.some(
+                        (collection) => collection.id.toString() === value
+                      )
+                        ? true
+                        : "Invalid collection"
+                    }
                   }
                 })}
               >
@@ -153,7 +194,9 @@ export default function NewBookmark({ collections }: Props) {
                 ))}
               </SelectField>
               {errors.collection && (
-                <span>{String(errors.collection.message)}</span>
+                <span className="text-sm text-gray-500">
+                  {String(errors.collection.message)}
+                </span>
               )}
             </div>
             <div className="flex justify-end">
