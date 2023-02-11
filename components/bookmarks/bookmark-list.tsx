@@ -1,4 +1,3 @@
-import useAsync from "@/hooks/use-async"
 import { Bookmark } from "@prisma/client"
 
 import BookmarkItem from "./bookmark-item"
