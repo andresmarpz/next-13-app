@@ -58,8 +58,6 @@ export default function NewBookmark({ collections }: Props) {
     getValues
   } = useForm()
 
-  console.log(getValues("collection"))
-
   const setOpen = (open: boolean) => {
     if (open === false) {
       clearErrors()

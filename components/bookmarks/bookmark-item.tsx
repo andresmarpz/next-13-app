@@ -16,6 +16,7 @@ import useAsync from "@/hooks/use-async"
 import deleteBookmark from "@/lib/api/delete-bookmark"
 import Spinner from "../ui/spinner"
 import { prettifyURL } from "@/lib/transform-url"
+import clsx from "clsx"
 
 interface Props {
   bookmark: Pick<Bookmark, "title" | "description" | "url" | "icon" | "id">
@@ -56,18 +57,23 @@ export default function BookmarkItem({
             rel="noreferrer noopener"
           >
             <div className="flex min-w-[32px] items-start">
-              {icon && (
-                <div className="rounded border p-1">
+              <div
+                className={clsx(
+                  "h-6 w-6 rounded border p-1",
+                  !icon ? "bg-slate-500" : "bg-white dark:bg-gray-900"
+                )}
+              >
+                {icon && (
                   <Image
                     src={icon}
                     alt=""
                     className="rounded"
                     width={24}
                     height={24}
-										unoptimized
+                    unoptimized
                   />
-                </div>
-              )}
+                )}
+              </div>
             </div>
             <div>
               <h3 className="font-semibold text-gray-900">{title}</h3>
